@@ -1,33 +1,35 @@
-name: Pacman Contributions
+name: Pacman Contribution Graph
 
 on:
   schedule:
     - cron: '0 0 * * *' # se ejecuta todos los días a medianoche
-  workflow_dispatch:
+  workflow_dispatch: # permite correrlo manualmente
 
 jobs:
-  build:
+  generate-pacman:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '20'
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Install dependencies
+        run: npm install -g github-pacman-readme
 
       - name: Generate Pacman Graph
         run: |
-          npx github-contribution-pacman -u ${{ github.repository_owner }} -o output/pacman-contribution-graph.svg
-          
+          mkdir -p output
+          github-pacman-readme --output output/pacman-contribution-graph.svg
+
       - name: Commit and Push
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git add output/pacman-contribution-graph.svg
-          git commit -m "Update Pacman graph"
-          git push
+          git diff --cached --quiet || git commit -m "Update Pacman graph"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
