@@ -5,6 +5,12 @@
 ###
 
 <div align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=kodergoq.kodergoq&"  />
+</div>
+
+###
+
+<div align="center">
   <img src="https://skillicons.dev/icons?i=ts" height="60" alt="typescript logo"  />
   <img width="12" />
   <img src="https://skillicons.dev/icons?i=nextjs" height="60" alt="nextjs logo"  />
@@ -79,5 +85,9 @@
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/kodergoq/kodergoq/output/pacman-contribution-graph.svg">
   <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/kodergoq/kodergoq/output/pacman-contribution-graph.svg">
 </picture>
+
+###
+
+<img src="https://raw.githubusercontent.com/kodergoq/kodergoq/output/snake.svg" alt="Snake animation" />
 
 ###
