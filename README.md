@@ -61,7 +61,7 @@
   <a href="https://x.com/ImGoq_" target="_blank">
     <img src="https://img.shields.io/static/v1?message=Twitter&logo=twitter&label=&color=1DA1F2&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="twitter logo"  />
   </a>
-  <a href="https://discord.gg/W3QU53WKmv" target="_blank">
+  <a href="https://discord.gg/RqKuj6xBYY" target="_blank">
     <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="discord logo"  />
   </a>
   <a href="https://www.twitch.tv/imkode0" target="_blank">
