@@ -1,4 +1,4 @@
-name: Metrics Final
+name: Metrics Final Fix
 on:
   schedule: [{cron: "0 0 * * *"}]
   workflow_dispatch:
@@ -10,7 +10,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      # CAMBIO IMPORTANTE: Usar master en lugar de latest
       - uses: lowlighter/metrics@master 
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -21,28 +20,26 @@ jobs:
           base: header, community, repositories, metadata
           config_timezone: America/Mexico_City
 
-          # LENGUAJES: Limpio y enfocado
+          # LENGUAJES: Ignoramos lo que no es core para tu perfil
           plugin_languages: yes
-          plugin_languages_ignored: html, css, scss
+          plugin_languages_ignored: html, css, scss, ruby
           plugin_languages_details: bytes-size, percentage
           plugin_languages_limit: 8
           
-          # LOGROS: Ajustado para evitar el error de Projects
-          plugin_achievements: yes
-          plugin_achievements_display: compact
-          plugin_achievements_threshold: C
-          # Esto evita que busque cosas obsoletas si el bug persiste
-          plugin_achievements_secrets: yes 
+          # ACHIEVEMENTS: Lo desactivamos temporalmente 
+          # porque el plugin actual tiene el bug de "Projects Classic"
+          plugin_achievements: no 
 
           # HÁBITOS Y ACTIVIDAD: 
-          # Si tienes poca actividad reciente, bajamos los días para que no falle
+          # Aumentamos el rango a 30 días y quitamos filtros estrictos
+          # para evitar el error de "undefined" si hay poca actividad
           plugin_habits: yes
           plugin_habits_from: 200
-          plugin_habits_days: 14
+          plugin_habits_days: 30        # Más días para encontrar actividad
           plugin_habits_facts: yes
           plugin_habits_charts: yes
           
           plugin_activity: yes
           plugin_activity_limit: 5
-          plugin_activity_days: 14
-          plugin_activity_filter: push, issue, pr, member
+          plugin_activity_days: 0       # 0 significa "sin límite" para encontrar algo
+          # Quitamos el filtro para que tome cualquier evento (star, fork, push)
