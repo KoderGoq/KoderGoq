@@ -1,0 +1,33 @@
+name: Metrics
+on:
+  # Se ejecuta cada 24 horas
+  schedule: [{cron: "0 0 * * *"}]
+  # Permite ejecutarlo manualmente desde la pestaña Actions
+  workflow_dispatch:
+  # Se ejecuta cada vez que haces push a la rama principal
+  push: {branches: ["master", "main"]}
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          # Tu token guardado en secrets
+          token: ${{ secrets.METRICS_TOKEN }}
+
+          # Configuración visual
+          user: kodergoq
+          template: classic
+          base: header, community, repositories, metadata
+          config_timezone: America/Mexico_City # Ajusta a tu zona
+          
+          # Plugins (puedes añadir más)
+          plugin_languages: yes
+          plugin_languages_sections: most-used
+          plugin_languages_details: bytes-size, percentage
+          plugin_habits: yes
+          plugin_habits_charts: yes
+          plugin_habits_days: 14
