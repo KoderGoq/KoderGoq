@@ -1,10 +1,7 @@
-name: Metrics
+name: Metrics Final
 on:
-  # Se ejecuta cada 24 horas
-  schedule: [{cron: "0 0 * * *"}]
-  # Permite ejecutarlo manualmente desde la pestaña Actions
-  workflow_dispatch:
-  # Se ejecuta cada vez que haces push a la rama principal
+  schedule: [{cron: "0 0 * * *"}] # Se actualiza cada media noche
+  workflow_dispatch:              # Permite ejecutarlo manualmente
   push: {branches: ["master", "main"]}
 
 jobs:
@@ -15,19 +12,33 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
-          # Tu token guardado en secrets
           token: ${{ secrets.METRICS_TOKEN }}
 
-          # Configuración visual
+          # Configuración de usuario
           user: kodergoq
           template: classic
           base: header, community, repositories, metadata
-          config_timezone: America/Mexico_City # Ajusta a tu zona
-          
-          # Plugins (puedes añadir más)
+          config_timezone: America/Mexico_City
+
+          # LENGUAJES: Analiza TODO tu código
           plugin_languages: yes
+          plugin_languages_ignored: html, css # Ignora lenguajes simples si prefieres resaltar TS/JS
+          plugin_languages_details: bytes-size, percentage, lines
           plugin_languages_sections: most-used
-          plugin_languages_details: bytes-size, percentage
+          plugin_languages_limit: 8
+          
+          # HÁBITOS: Solución al error de "Unexpected Error"
           plugin_habits: yes
+          plugin_habits_from: 500       # Analiza más eventos (500) para evitar el error
+          plugin_habits_days: 30        # Rango de un mes completo
+          plugin_habits_facts: yes
           plugin_habits_charts: yes
-          plugin_habits_days: 14
+          
+          # LOGROS Y ACTIVIDAD (Para que se vea "bonito")
+          plugin_achievements: yes
+          plugin_achievements_display: compact
+          plugin_achievements_threshold: C
+          
+          plugin_activity: yes
+          plugin_activity_limit: 5
+          plugin_activity_days: 0 # Sin límite de días para encontrar actividad
